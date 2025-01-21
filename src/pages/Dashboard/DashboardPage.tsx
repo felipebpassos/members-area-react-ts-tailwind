@@ -79,26 +79,32 @@ const DashboardPage: React.FC = () => {
 
   // Função para verificar se os vídeos estão carregados
   useEffect(() => {
-    setLoading(true); // Começa o carregamento
+    // Defina loading para true sempre que o efeito for executado
+    setLoading(true);
+    
+    // Timeout para simular o carregamento
     const timeoutId = setTimeout(() => {
-      setLoading(false); // Finaliza o carregamento após 3 segundos
-    }, 3000);
-
-    if (videoRefs.current.length > 0) {
-      const allVideos = videoRefs.current;
-      const allLoaded = allVideos.every((video) => video?.readyState === 4);
-
+      setLoading(false);
+    }, 3000); // Atraso de 3 segundos
+  
+    // Verifica se todos os vídeos estão carregados antes de finalizar o loading
+    const checkVideosLoaded = () => {
+      const allLoaded = videoRefs.current.every((video) => video?.readyState === 4);
       if (allLoaded) {
-        setLoading(false); // Finaliza se todos os vídeos estiverem carregados antes do timeout
-        clearTimeout(timeoutId);
+        setLoading(false);
+        clearTimeout(timeoutId); // Limpa o timeout se todos os vídeos estiverem carregados
       }
+    };
+  
+    if (videoRefs.current.length > 0) {
+      checkVideosLoaded(); // Verifica o carregamento ao iniciar
     }
-
+  
     return () => {
       clearTimeout(timeoutId); // Limpa o timeout quando o componente for desmontado
     };
-  }, [modules]);
-
+  }, [modules]); // Dependência em 'modules' para monitorar quando os módulos mudam
+  
   const handleNextBanner = () => {
     setCurrentBannerIndex((prevIndex) => (prevIndex + 1) % banners.length);
   };
