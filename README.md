@@ -61,17 +61,23 @@ git clone <url-do-repositorio>
 </code>
 </pre>
 
+2. Acesse o diretório do projeto:
+
 <pre>
 <code>
-cd <nome-do-projeto>
+cd members-area-react-ts-tailwind
 </code>
 </pre>
+
+3. Instale as dependências:
 
 <pre>
 <code>
 npm install
 </code>
 </pre>
+
+4. Inicie o servidor de desenvolvimento:
 
 <pre>
 <code>
