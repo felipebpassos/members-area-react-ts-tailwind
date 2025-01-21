@@ -1,5 +1,7 @@
 # Ultimate Members (frontend)
 
+![Interface da Aplicação](https://github.com/felipebpassos/felipebpassos/blob/main/print.png?raw=true)
+
 ## Descrição do Projeto
 
 Este é um projeto frontend desenvolvido com as seguintes tecnologias:
