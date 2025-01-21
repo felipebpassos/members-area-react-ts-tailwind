@@ -4,7 +4,7 @@
 
 ## Descrição do Projeto
 
-Este é um projeto frontend desenvolvido com as seguintes tecnologias:
+Este é um projeto frontend de Área de Membros para Cursos Online desenvolvido com as seguintes tecnologias:
 - **React** com **TypeScript** para construção da interface;
 - **Vite** para inicialização e build rápido do projeto;
 - **Tailwind CSS** para estilização responsiva e customizável;
