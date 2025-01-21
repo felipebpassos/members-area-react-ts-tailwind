@@ -1,0 +1,116 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    /* Cards com largura mínima de 250px */
+    gap: 20px;
+    /* Espaçamento entre os cards */
+    justify-items: start;
+    /* Alinha os cards à esquerda */
+}
+
+.card {
+    width: 100%;
+    max-width: 300px;
+    /* Largura máxima dos cards */
+    /* aspect-ratio: 9 / 13.4; */
+    aspect-ratio: 9 / 13.4;
+    /* Proporção Portrait (Reels) */
+    border: none;
+    background-color: #303030;
+    /* Cor da borda */
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.card-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover .card-thumb {
+    opacity: 0;
+}
+
+.card:hover .card-video {
+    opacity: 1;
+}
+
+.card:hover {
+    transform: scale(1.06);
+}
+
+.card-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+    height: 150px;
+    padding: 30px 15px;
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: end;
+}
+
+.card-title {
+    font-weight: 600;
+    font-size: 16px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.card:hover .card-footer {
+    opacity: 1;
+    transform: scale(1.06);
+}
+
+@media (max-width: 500px) {
+    .grid-container {
+        grid-template-columns: repeat(auto-fit, minmax(calc(50% - 15px), 1fr));
+        /* Garante pelo menos 2 cards na linha */
+        gap: 15px;
+        /* Espaçamento maior entre os cards */
+        justify-items: center;
+        /* Centraliza os cards em telas pequenas */
+    }
+
+    .card {
+        max-width: 200px;
+    }
+
+    .card-footer {
+        height: 100px;
+        /* Reduz o footer para ocupar menos espaço */
+        padding: 15px 10px;
+        font-size: 14px;
+        /* Diminui o tamanho da fonte */
+    }
+
+    .card-title {
+        font-size: 14px;
+        /* Ajusta o título para telas pequenas */
+    }
+}

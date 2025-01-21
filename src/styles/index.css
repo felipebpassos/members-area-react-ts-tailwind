@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    /* Para o modo escuro */
+    background-color: #242424;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+}
+
+html,
+body,
+#root {
+    width: 100%;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+}
+
+button {
+    border-radius: 8px;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* Remover outline de todos os inputs no foco */
+input:focus {
+    outline: none;
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #151515;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Estilo global para o fundo fixo */
+.dashboard {
+    background: url('/background.png') 50% / cover no-repeat fixed;
+}
+
+header::after {
+    content: "";
+    display: block;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.04) 14.93%, rgba(0, 0, 0, 0.13) 30.32%, rgba(0, 0, 0, 0.25) 45.76%, rgba(0, 0, 0, 0.40) 60.85%, rgba(0, 0, 0, 0.55) 75.19%, rgba(0, 0, 0, 0.69) 88.37%, rgba(0, 0, 0, 0.80) 100%);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 170px;
+    /* Ajuste a altura conforme necessário */
+    pointer-events: none;
+    z-index: -1;
+    /* Faz com que a película fique atrás do conteúdo */
+}
+
+/* Adiciona outline ao hover do banner */
+.banner-container {
+    position: relative;
+    /* Necessário para garantir que o outline funcione corretamente */
+    border-radius: 0.5rem;
+    /* Borda arredondada, se necessário */
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+}
+
+.banner-container:hover {
+    outline: 2px solid white;
+    /* Aplica o outline ao hover */
+    outline-offset: 4px;
+    /* Distância do outline em relação à borda */
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        color: #213547;
+        /* Cor de texto mais escura no modo claro */
+        background-color: #ffffff;
+        /* Fundo claro */
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        color: rgba(255, 255, 255, 0.87);
+        /* Cor de texto mais clara no modo escuro */
+        background-color: #242424;
+        /* Fundo escuro */
+    }
+}
