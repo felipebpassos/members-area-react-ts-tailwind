@@ -1,4 +1,4 @@
-# Projeto Frontend: React + TypeScript + Vite + Tailwind CSS
+# Ultimate Members (frontend)
 
 ## Descrição do Projeto
 
