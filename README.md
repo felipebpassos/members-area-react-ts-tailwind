@@ -49,27 +49,40 @@ package-lock.json     # Controle de versões das dependências
 
 ---
 
-## Próximos Passos
-
-- Desenvolver o backend da aplicação e substituir os dados estáticos por uma API real.
-- Integrar a API ao frontend utilizando as funções da pasta `/api`.
-
----
-
 ## Instalação e Execução
 
 Siga os passos abaixo para rodar o projeto localmente:
 
 1. Clone este repositório:
-   ```bash
-   git clone <url-do-repositorio>
+   
+<pre>
+<code>
+git clone <url-do-repositorio>
+</code>
+</pre>
 
-   ```bash
-   cd <nome-do-projeto>
+<pre>
+<code>
+cd <nome-do-projeto>
+</code>
+</pre>
 
-   ```bash
-   npm install
+<pre>
+<code>
+npm install
+</code>
+</pre>
 
-   ```bash
-   npm run dev
+<pre>
+<code>
+npm run dev
+</code>
+</pre>
+
+---
+
+## Próximos Passos
+
+- Desenvolver o backend da aplicação e substituir os dados estáticos por uma API real.
+- Integrar a API ao frontend utilizando as funções da pasta `/api`.
 
