@@ -16,7 +16,8 @@ Atualmente, os dados utilizados são estáticos, mas a estrutura já está prepa
 
 O projeto segue uma **arquitetura modularizada**, onde cada pasta representa uma camada ou funcionalidade específica:
 
-```bash
+<pre>
+<code>
 /public               # Arquivos públicos estáticos
 /src                  # Código fonte principal
 	|_ /api           # Funções para chamadas à API
@@ -36,7 +37,8 @@ postcss.config.js     # Configurações do PostCSS
 vite.config.ts        # Configurações do Vite
 package.json          # Dependências do projeto
 package-lock.json     # Controle de versões das dependências
-
+</code>
+</pre>
 
 ---
 
