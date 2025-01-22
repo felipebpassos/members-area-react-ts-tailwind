@@ -14,6 +14,25 @@ Atualmente, os dados utilizados são estáticos, mas a estrutura já está prepa
 
 ---
 
+## Funcionalidades Principais
+
+### Autenticação de Usuários:
+- Redireciona automaticamente usuários não logados ou com token inválido para a tela de login.
+- Após o login, mantém o estado de autenticação com base em tokens.
+
+### Controle de Acesso às Rotas:
+- Usuários não logados são redirecionados ao login independentemente da rota acessada.
+- Usuários logados que acessam `/` são redirecionados para `/dashboard`.
+- Rotas inexistentes levam os usuários logados à página de erro 404.
+
+### Páginas Implementadas:
+- **LoginPage** (`/`): Tela de login com autenticação.
+- **DashboardPage** (`/dashboard`): Tela inicial após login, com resumo e navegação.
+- **ModuloPage** (`/modulo/:id`): Exibição de aulas pertencentes a um módulo específico.
+- **NotFoundPage** (rota desconhecida): Página de erro 404 para rotas inválidas.
+
+---
+
 ## Estrutura de Pastas
 
 O projeto segue uma **arquitetura modularizada**, onde cada pasta representa uma camada ou funcionalidade específica:
@@ -59,7 +78,7 @@ Siga os passos abaixo para rodar o projeto localmente:
    
 <pre>
 <code>
-git clone <url-do-repositorio>
+git clone https://github.com/felipebpassos/members-area-react-ts-tailwind.git
 </code>
 </pre>
 
