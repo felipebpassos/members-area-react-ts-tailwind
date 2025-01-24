@@ -11,7 +11,7 @@ const DashboardPage: React.FC = () => {
   const banners = [
     {
       link: 'https://example.com/banner1',
-      imageUrl: 'https://ultimatemembers.s3.eu-north-1.amazonaws.com/banners/banner1.png',
+      imageUrl: 'https://ultimatemembers.s3.eu-north-1.amazonaws.com/banners/banner1.webp',
     },
     {
       link: 'https://example.com/banner2',
