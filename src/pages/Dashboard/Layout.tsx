@@ -1,23 +1,18 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../redux/slices/authSlice';
+import { Link } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth'; // Importando o hook de autenticação
+import { useSelector } from 'react-redux'; // Para acessar o estado do Redux
+import { StringUtils } from '../../utils/stringHandlers';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { handleLogout } = useAuth(); // Usando o handleLogout do hook
+
+  // Acessando o estado do Redux
+  const user = useSelector((state: any) => state.auth.user);
 
   const handleMouseEnter = () => setDropdownOpen(true);
   const handleMouseLeave = () => setDropdownOpen(false);
-
-  const handleLogout = () => {
-    // Remover o token do localStorage para simular o logout
-    dispatch(logout());
-
-    // Redirecionar o usuário para a página de login
-    navigate('/');
-  };
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-100 dashboard">
@@ -40,7 +35,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             onMouseLeave={handleMouseLeave}
           >
             {/* Nome e foto arredondada */}
-            <span className="text-white">Username</span>
+            <span className="text-white">{user ? StringUtils.getFirstName(user.name) : 'Username'}</span>
             <img
               src="/default.png" // Substitua pelo caminho correto da foto
               alt="User"
@@ -52,15 +47,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               <div className="absolute right-0 top-full bg-black text-white py-2 w-40 rounded-b-lg">
                 <button
                   className="block w-full px-4 py-2 text-left text-sm text-gray-400 hover:text-white"
-                  onClick={() => console.log('Editar perfil')}
-                >
-                  Edit profile
-                </button>
-                <button
-                  className="block w-full px-4 py-2 text-left text-sm text-gray-400 hover:text-white"
                   onClick={handleLogout} // Chama a função de logout
                 >
-                  Log out
+                  <i className="fas fa-sign-out-alt mr-2"></i> Sair
                 </button>
               </div>
             )}
@@ -77,7 +66,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <footer className="text-normal py-6 mt-auto">
         <div className="flex justify-center">
           <span className="text-center text-sm">
-            &copy;<a href="https://simplifyweb.com.br" className="text-white">SimplifyWeb</a>, all rights reserved.
+            &copy;<a href="https://simplifyweb.com.br" className="text-white">SimplifyWeb</a>, todos os direitos reservados.
           </span>
         </div>
       </footer>

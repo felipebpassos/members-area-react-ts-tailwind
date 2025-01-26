@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-// import { validateToken } from '../api/auth'; // Função para validar o token
+import { validateToken } from '../api/auth'; // Função para validar o token
 
 interface ProtectedRouteProps {
     element: React.ReactNode;
@@ -16,10 +16,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
 
     useEffect(() => {
         const checkAuth = async () => {
-            console.log(token)
             if (token) {
-                // const isValid = await validateToken(token); // Valida o token com o backend
-                const isValid = true;
+                const isValid = await validateToken(token);
                 setIsAuthenticated(isValid);
             } else {
                 setIsAuthenticated(false);
@@ -31,7 +29,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
     }, []);
 
     if (isLoading) {
-        return <div>Carregando...</div>; // Exibe uma tela de carregamento enquanto valida o token
+        return (
+            <div className="loading-overlay">
+                <img src="/spinner.png" alt="Loading..." className="spinner" />
+            </div>
+        );
     }
 
     if (!isAuthenticated) {

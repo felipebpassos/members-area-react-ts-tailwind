@@ -1,57 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from './Layout';
+import { useSelector } from 'react-redux';
+import { fetchModules } from '../../api/modules'; // Importa a função para buscar módulos
+import { fetchBanners } from '../../api/banners';
+import { RootState } from '../../redux/store'; // Importa o tipo RootState
 
 const DashboardPage: React.FC = () => {
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
-  const [loading, setLoading] = useState(true); // Estado para gerenciar o carregamento dos vídeos
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]); // Referências para os vídeos
   const bannerRef = useRef<HTMLDivElement>(null);
 
-  const banners = [
-    {
-      link: 'https://example.com/banner1',
-      imageUrl: 'https://ultimatemembers.s3.eu-north-1.amazonaws.com/banners/banner1.webp',
-    },
-    {
-      link: 'https://example.com/banner2',
-      imageUrl: 'https://ultimatemembers.s3.eu-north-1.amazonaws.com/banners/banner2.jpg',
-    },
-  ];
+  // Obtemos os módulos e o estado de carregamento do Redux
+  const modules = useSelector((state: RootState) => state.module.modules); 
+  const loadedModules = useSelector((state: RootState) => state.module.loaded);
+  const banners = useSelector((state: RootState) => state.banner.banners);
+  const loadedBanners = useSelector((state: RootState) => state.module.loaded);
 
-  const modules = [
-    {
-      id: 1,
-      title: 'Módulo 1: Introdução',
-      thumbUrl: 'https://ultimatemembers.s3.eu-north-1.amazonaws.com/thumb_modulos/thumb1.png',
-      videoUrl: 'https://ultimatemembers.s3.eu-north-1.amazonaws.com/videos/Modulo01.mp4',
-    },
-    {
-      id: 2,
-      title: 'Módulo 2: Storytelling',
-      thumbUrl: 'https://ultimatemembers.s3.eu-north-1.amazonaws.com/thumb_modulos/thumb2.png',
-      videoUrl: 'https://ultimatemembers.s3.eu-north-1.amazonaws.com/videos/Modulo01.mp4',
-    },
-    {
-      id: 3,
-      title: 'Módulo 3: Avançado',
-      thumbUrl: 'https://ultimatemembers.s3.eu-north-1.amazonaws.com/thumb_modulos/thumb3.png',
-      videoUrl: 'https://ultimatemembers.s3.eu-north-1.amazonaws.com/videos/Modulo01.mp4',
-    },
-    {
-      id: 4,
-      title: 'Módulo 4: Fundamentos I',
-      thumbUrl: 'https://ultimatemembers.s3.eu-north-1.amazonaws.com/thumb_modulos/thumb4.png',
-      videoUrl: 'https://ultimatemembers.s3.eu-north-1.amazonaws.com/videos/Modulo01.mp4',
-    },
-    {
-      id: 5,
-      title: 'Módulo 5: Fundamentos II',
-      thumbUrl: 'https://ultimatemembers.s3.eu-north-1.amazonaws.com/thumb_modulos/thumb5.png',
-      videoUrl: 'https://ultimatemembers.s3.eu-north-1.amazonaws.com/videos/Modulo01.mp4',
-    },
-  ];
-
+  // Função para atualizar a altura do banner
   const updateBannerHeight = () => {
     if (bannerRef.current) {
       const width = bannerRef.current.offsetWidth;
@@ -62,6 +28,22 @@ const DashboardPage: React.FC = () => {
     }
   };
 
+  // Função para carregar os módulos e banners
+  const loadModulesAndBanners = async () => {
+    if (!loadedModules) {
+      await fetchModules(); // Chama a API para carregar os módulos
+    }
+    if (!loadedBanners) {
+      await fetchBanners(); // Chama a API para carregar os banners
+    }
+  };
+
+  // Carrega os módulos da API se ainda não estiverem carregados
+  useEffect(() => {
+    loadModulesAndBanners();
+  }, [loadedModules, loadedBanners]); // Dependência para verificar quando os módulos estão carregados
+
+  // Efeito para ajustar a altura do banner ao redimensionar a janela
   useEffect(() => {
     updateBannerHeight();
     window.addEventListener('resize', updateBannerHeight);
@@ -71,35 +53,6 @@ const DashboardPage: React.FC = () => {
     };
   }, []);
 
-  // Verifica se todos os vídeos estão carregados
-  const handleVideoLoaded = () => {
-    const allLoaded = videoRefs.current.every((video) => video?.readyState === 4);
-    if (allLoaded) setLoading(false);
-  };
-
-  // Função para verificar se os vídeos estão carregados
-  useEffect(() => {
-    setLoading(true); // Começa o carregamento
-    const timeoutId = setTimeout(() => {
-      setLoading(false); // Finaliza o carregamento após 3 segundos
-    }, 3000);
-  
-    if (videoRefs.current.length > 0) {
-      const allVideos = videoRefs.current;
-      const allLoaded = allVideos.every((video) => video?.readyState === 4);
-  
-      if (allLoaded) {
-        setLoading(false); // Finaliza se todos os vídeos estiverem carregados antes do timeout
-        clearTimeout(timeoutId);
-      }
-    }
-  
-    return () => {
-      clearTimeout(timeoutId); // Limpa o timeout quando o componente for desmontado
-    };
-  }, []);
-  
-  
   const handleNextBanner = () => {
     setCurrentBannerIndex((prevIndex) => (prevIndex + 1) % banners.length);
   };
@@ -110,23 +63,25 @@ const DashboardPage: React.FC = () => {
     );
   };
 
+  // Verifica se há banners disponíveis
+  if (!banners || banners.length === 0) {
+    return (
+      <Layout>
+        <div className="loading-overlay">
+          <img src="/spinner.png" alt="Loading..." className="spinner" />
+        </div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
-      {loading && (
-        <div className="loading-overlay">
-          <img
-            src="/spinner.png"
-            alt="Loading..."
-            className="spinner"
-          />
-        </div>
-      )}
-
+      {/* Carregamento e Banner */}
       <div className="relative w-full mb-20" ref={bannerRef}>
         <div className="w-full overflow-hidden banner-container" style={{ height: '100%' }}>
           <a href={banners[currentBannerIndex].link}>
             <img
-              src={banners[currentBannerIndex].imageUrl}
+              src={banners[currentBannerIndex].image_url}
               alt={`Banner ${currentBannerIndex + 1}`}
               className="w-full h-full object-cover"
             />
@@ -146,6 +101,7 @@ const DashboardPage: React.FC = () => {
         </button>
       </div>
 
+      {/* Módulos */}
       <div className="grid-container">
         {modules.map((module, index) => (
           <Link
@@ -167,24 +123,24 @@ const DashboardPage: React.FC = () => {
             <div>
               <div className="card-content">
                 <img
-                  src={module.thumbUrl}
+                  src={module.cover_url}
                   alt={module.title}
                   className="card-thumb"
                 />
-                {module.videoUrl && (
+                {module.video_cover_url && (
                   <video
                     ref={(el) => (videoRefs.current[index] = el)}
                     className="card-video"
                     loop
                     muted
-                    onLoadedData={handleVideoLoaded}
                   >
-                    <source src={module.videoUrl} type="video/mp4" />
+                    <source src={module.video_cover_url} type="video/mp4" />
                   </video>
                 )}
               </div>
               <div className="card-footer">
                 <h3 className="card-title">{module.title}</h3>
+                <p>{module.description}</p>
               </div>
             </div>
           </Link>

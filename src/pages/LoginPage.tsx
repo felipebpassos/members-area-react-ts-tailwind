@@ -1,53 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { setAuthToken } from '../redux/slices/authSlice';
+// pages/LoginPage.tsx
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import InputField from '../components/InputField'; // Importando o novo componente
-// import { validateToken } from '../api/auth'; // Função para validar o token
-import { isValidEmail } from '../utils/validators';
+import useAuth from '../hooks/useAuth'; // Hook de autenticação
 
 const LoginPage: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { email, setEmail, password, setPassword, error, handleLogin, checkAuth } = useAuth();
 
   // Pegando o token do Redux
   const token = useSelector((state: any) => state.auth.token);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      // Verificar se o token já está no Redux
-      console.log(token)
-      if (token) {
-        // const isValid = await validateToken(token); // Valida o token com o backend
-        const isValid = true;
-        if (isValid) {
-          // Redireciona para o Dashboard se o usuário já estiver logado
-          navigate('/dashboard');
-        }
-      }
-    };
-
-    checkAuth();
-  }, [token, navigate]);
-
-  const handleLogin = () => {
-    if (!email || !password) {
-      alert('Por favor, preencha todos os campos.');
-      return;
-    }
-
-    if (!isValidEmail(email)) {
-      alert('Por favor, insira um email válido.');
-      return;
-    }
-
-    const fakeToken = 'fake-jwt-token';
-
-    dispatch(setAuthToken(fakeToken));
-    navigate('/dashboard');
-  };
+    checkAuth(token); // Chama a função de verificação de token quando a página carrega
+  }, [token, checkAuth]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
@@ -75,6 +40,8 @@ const LoginPage: React.FC = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
+        {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+
         <button
           className="w-full bg-black text-white p-3 mt-2 rounded hover:bg-opacity-80"
           onClick={handleLogin}
@@ -87,7 +54,7 @@ const LoginPage: React.FC = () => {
       <footer className="fixed bottom-0 left-0 w-full text-dark py-6">
         <div className="flex justify-center">
           <span className="text-center text-sm">
-            &copy;<a href="https://simplifyweb.com.br" className="text-darker">SimplifyWeb</a>, all rights reserved.
+            &copy;<a href="https://simplifyweb.com.br" className="text-darker">SimplifyWeb</a>, todos os direitos reservados.
           </span>
         </div>
       </footer>
