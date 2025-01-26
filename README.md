@@ -2,15 +2,25 @@
 
 ![Interface da Aplicação](https://github.com/felipebpassos/felipebpassos/blob/main/print.png?raw=true)
 
+👉 [Live Link](https://members-area-react-ts-tailwind.vercel.app/)
+
+Veja também: [Backend](https://github.com/felipebpassos/ultimatemembers-api-rest-node)
+
 ## Descrição do Projeto
 
 Este é um projeto frontend de **Área de Membros para Cursos Online** desenvolvido com as seguintes tecnologias:
 - **React** com **TypeScript** para construção da interface;
 - **Vite** para inicialização e build rápido do projeto;
 - **Tailwind CSS** para estilização responsiva e customizável;
-- **Redux** para gerenciamento de estado global.
+- **Redux** para gerenciamento de estado global;
+- **Integração com Backend**: O frontend agora está inteiramente integrado com a API backend para manipulação de dados dinâmicos de módulos e aulas.
 
-Atualmente, os dados utilizados são estáticos, mas a estrutura já está preparada para integração com uma API futura. As imagens e vídeos estão hospedados em um bucket público na AWS S3.
+### Funcionalidades
+- **Login e Autenticação de Usuários**: O sistema agora utiliza autenticação via tokens JWT. Usuários logados têm acesso a módulos e aulas protegidos.
+- **Exibição Dinâmica de Dados**: As informações de módulos e aulas são obtidas diretamente do backend, tornando a aplicação dinâmica.
+- **Controle de Acesso às Rotas**: Implementação de redirecionamento e validação de acesso para rotas de login e dashboard.
+  
+Atualmente, o frontend está completamente integrado ao backend, tornando os dados dinâmicos e baseados em um sistema de autenticação via tokens.
 
 ---
 
@@ -18,7 +28,7 @@ Atualmente, os dados utilizados são estáticos, mas a estrutura já está prepa
 
 ### Autenticação de Usuários:
 - Redireciona automaticamente usuários não logados ou com token inválido para a tela de login.
-- Após o login, mantém o estado de autenticação com base em tokens.
+- Após o login, mantém o estado de autenticação com base em tokens JWT.
 
 ### Controle de Acesso às Rotas:
 - Usuários não logados são redirecionados ao login independentemente da rota acessada.
@@ -28,7 +38,7 @@ Atualmente, os dados utilizados são estáticos, mas a estrutura já está prepa
 ### Páginas Implementadas:
 - **LoginPage** (`/`): Tela de login com autenticação.
 - **DashboardPage** (`/dashboard`): Tela inicial após login, com resumo e navegação.
-- **ModuloPage** (`/modulo/:id`): Exibição de aulas pertencentes a um módulo específico.
+- **ModuloPage** (`/modulo/:id`): Exibição de aulas pertencentes a um módulo específico, agora com dados dinâmicos retirados da API.
 - **NotFoundPage** (rota desconhecida): Página de erro 404 para rotas inválidas.
 
 ---
@@ -108,8 +118,24 @@ npm run dev
 
 ---
 
+## Integração com o Backend
+
+A aplicação consome os dados de **módulos** e **aulas** de uma API hospedada em [https://ultimatemembers-api-rest-node.onrender.com](https://ultimatemembers-api-rest-node.onrender.com/api/v1.0/api-docs/). O processo de integração foi realizado com sucesso e o fluxo de autenticação e carregamento dos dados foi implementado utilizando Redux para gerenciar o estado e as interações com a API.
+
+Veja repositório do backend [aqui](https://github.com/felipebpassos/ultimatemembers-api-rest-node)
+
+### Chamadas à API:
+
+- **POST** `/api/v1.0/auth/login`: Login de usuário
+- **GET** `/api/v1.0/auth/validate-token`: Validação do token JWT
+- **GET** `/api/v1.0/banners`: Obter todos os banners
+- **GET** `/api/v1.0/modules`: Obter todos os módulos
+- **GET** `/api/v1.0/modules/{id}/lessons`: Obter aulas de um módulo específico
+
+---
+
 ## Próximos Passos
 
-- Desenvolver o backend da aplicação e substituir os dados estáticos por uma API real.
-- Integrar a API ao frontend utilizando as funções da pasta `/api`.
-
+- Implementar a edição de dados no frontend em painel administrativo, com ações para adicionar, editar ou remover módulos e aulas.
+- Continuar o desenvolvimento de novas funcionalidades como: integração com marketplaces (Kiwify, Hotmart), salvar progresso, download de arquivos, multitenancy com whitelabel, comunidade, gameficação e etc.
+- Adicionar testes para validar o fluxo da aplicação.
