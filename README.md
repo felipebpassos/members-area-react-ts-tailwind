@@ -41,16 +41,16 @@ O projeto segue uma **arquitetura modularizada**, onde cada pasta representa uma
 <code>
 /public               # Arquivos públicos estáticos
 /src                  # Código fonte principal
-	|_ /api           # Funções para chamadas à API
-	   /assets        # Imagens, ícones, vídeos e outros recursos
-	   /componentes   # Componentes reutilizáveis
-	   /pages         # Páginas da aplicação
-	   /redux         # Configuração e slices do Redux
-	   /styles        # Arquivos de estilo, incluindo Tailwind e customizações
-	   /utils         # Funções utilitárias
-	   App.tsx        # Componente principal da aplicação
-	   config.ts      # Configurações globais da aplicação
-	   main.tsx       # Ponto de entrada do React
+	/api           	  # Funções para chamadas à API
+	/assets        	  # Imagens, ícones, vídeos e outros recursos
+	/componentes   	  # Componentes reutilizáveis
+	/pages         	  # Páginas da aplicação
+	/redux         	  # Configuração e slices do Redux
+	/styles        	  # Arquivos de estilo, incluindo Tailwind e customizações
+	/utils         	  # Funções utilitárias
+	App.tsx        	  # Componente principal da aplicação
+	config.ts      	  # Configurações globais da aplicação
+	main.tsx       	  # Ponto de entrada do React
 .env                  # Variáveis de ambiente
 .gitignore            # Arquivos e pastas ignorados pelo Git
 tailwind.config.js    # Configurações do Tailwind CSS
