@@ -1,5 +1,4 @@
-// pages/LoginPage.tsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import InputField from '../components/InputField'; // Importando o novo componente
 import useAuth from '../hooks/useAuth'; // Hook de autenticação
@@ -10,9 +9,22 @@ const LoginPage: React.FC = () => {
   // Pegando o token do Redux
   const token = useSelector((state: any) => state.auth.token);
 
+  // Estado para controlar o loading
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     checkAuth(token); // Chama a função de verificação de token quando a página carrega
   }, [token, checkAuth]);
+
+  // Função que altera o estado de loading e chama o handleLogin
+  const handleLoginClick = async () => {
+    setLoading(true); // Ativa o carregamento
+    try {
+      await handleLogin(); // Chama o login
+    } finally {
+      setLoading(false); // Desativa o carregamento
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
@@ -44,9 +56,14 @@ const LoginPage: React.FC = () => {
 
         <button
           className="w-full bg-black text-white p-3 mt-2 rounded hover:bg-opacity-80"
-          onClick={handleLogin}
+          onClick={handleLoginClick}
+          disabled={loading} // Desativa o botão enquanto está carregando
         >
-          Entrar
+          {loading ? (
+            <span className="loader"></span> // Aqui você pode adicionar o indicador de carregamento
+          ) : (
+            'Entrar'
+          )}
         </button>
       </div>
 
