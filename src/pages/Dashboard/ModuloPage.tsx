@@ -10,7 +10,7 @@ const ModuloPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true); // Estado de carregamento
 
   // Pegando o estado global
   const modules = useSelector((state: RootState) => state.module.modules);
@@ -26,15 +26,23 @@ const ModuloPage: React.FC = () => {
       return;
     }
 
-    if (!modulo) {
-      // Se o módulo não for encontrado, buscamos os módulos e depois verificamos se o módulo existe
-      fetchModules();
-    } else {
-      // Buscando as aulas do módulo específico
-      fetchLessonsByModule(modulo.id);
-    }
+    const fetchData = async () => {
+      setLoading(true); // Ativa o carregamento antes de começar a buscar os dados
 
-    setLoading(false);
+      if (!modulo) {
+        // Se o módulo não for encontrado, buscamos os módulos
+        await fetchModules();
+      }
+
+      if (modulo) {
+        // Buscando as aulas do módulo específico
+        await fetchLessonsByModule(modulo.id);
+      }
+
+      setLoading(false); // Desativa o carregamento após buscar os dados
+    };
+
+    fetchData();
   }, [id, modulo, navigate]);
 
   if (loading) {
@@ -51,7 +59,7 @@ const ModuloPage: React.FC = () => {
 
   if (!modulo) {
     navigate('/notfound');
-    return;
+    return null;
   }
 
   return (
