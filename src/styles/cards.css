@@ -56,14 +56,32 @@
     opacity: 1;
 }
 
-.card-video {
-    display: none;
-    /* Esconde o vídeo por padrão */
+/* Fallback para dispositivos touch */
+body.is-touch .card.has-video:hover .card-thumb {
+    opacity: 1;
+    /* Mantém a thumb visível */
 }
 
-.card-video:not(:empty) {
-    display: block;
-    /* Mostra o vídeo apenas se existir conteúdo */
+body.is-touch .card.has-video:hover .card-video {
+    opacity: 0;
+    /* Esconde o vídeo */
+}
+
+/* Estilo para dispositivos não-touch */
+body.no-touch .card.has-video:hover .card-thumb {
+    opacity: 0;
+    /* Esconde a thumb */
+}
+
+body.no-touch .card.has-video:hover .card-video {
+    opacity: 1;
+    /* Exibe o vídeo */
+}
+
+/* Garantir que cards sem vídeo se comportem como esperado */
+.card:not(.has-video) .card-video {
+    display: none;
+    /* Esconde vídeos inexistentes */
 }
 
 .card:hover {

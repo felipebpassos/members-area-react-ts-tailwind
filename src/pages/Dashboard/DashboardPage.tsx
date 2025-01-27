@@ -55,6 +55,12 @@ const DashboardPage: React.FC = () => {
 
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
+  if (isTouchDevice) {
+    document.body.classList.add('is-touch');
+  } else {
+    document.body.classList.add('no-touch');
+  }
+
   const handleNextBanner = () => {
     setCurrentBannerIndex((prevIndex) => (prevIndex + 1) % banners.length);
   };
@@ -109,7 +115,7 @@ const DashboardPage: React.FC = () => {
           <Link
             to={`/modulo/${module.id}`}
             key={module.id}
-            className="card"
+            className={`card ${module.video_cover_url && module.video_cover_url.trim() !== "" ? "has-video" : ""}`}
             onMouseEnter={() => {
               if (
                 !isTouchDevice &&
