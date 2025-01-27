@@ -150,10 +150,6 @@ const DashboardPage: React.FC = () => {
                   </video>
                 )}
               </div>
-              <div className="card-footer">
-                <h3 className="card-title">{module.title}</h3>
-                <p>{module.description}</p>
-              </div>
             </div>
           </Link>
         ))}
