@@ -23,6 +23,7 @@ const InputField: React.FC<InputFieldProps> = ({ type, placeholder, value, onCha
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        autoCapitalize={type === 'email' ? 'none' : undefined}
         className={`w-full p-3 bg-[#f9f9f9] ${className}`} // Apenas borda inferior preta
       />
       {type === 'password' && (

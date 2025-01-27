@@ -66,7 +66,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <footer className="text-normal py-6 mt-auto">
         <div className="flex justify-center">
           <span className="text-center text-sm">
-            &copy;<a href="https://simplifyweb.com.br" className="text-white">SimplifyWeb</a>, todos os direitos reservados.
+            &copy;<a href="https://simplifyweb.com.br" className="text-white">simplifyweb</a>, todos os direitos reservados.
           </span>
         </div>
       </footer>

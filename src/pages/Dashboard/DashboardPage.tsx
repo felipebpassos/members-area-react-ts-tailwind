@@ -12,7 +12,7 @@ const DashboardPage: React.FC = () => {
   const bannerRef = useRef<HTMLDivElement>(null);
 
   // Obtemos os módulos e o estado de carregamento do Redux
-  const modules = useSelector((state: RootState) => state.module.modules); 
+  const modules = useSelector((state: RootState) => state.module.modules);
   const loadedModules = useSelector((state: RootState) => state.module.loaded);
   const banners = useSelector((state: RootState) => state.banner.banners);
   const loadedBanners = useSelector((state: RootState) => state.module.loaded);
@@ -52,6 +52,8 @@ const DashboardPage: React.FC = () => {
       window.removeEventListener('resize', updateBannerHeight);
     };
   }, []);
+
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
   const handleNextBanner = () => {
     setCurrentBannerIndex((prevIndex) => (prevIndex + 1) % banners.length);
@@ -109,13 +111,17 @@ const DashboardPage: React.FC = () => {
             key={module.id}
             className="card"
             onMouseEnter={() => {
-              if (videoRefs.current[index]) {
+              if (
+                !isTouchDevice &&
+                module.video_cover_url &&
+                videoRefs.current[index]
+              ) {
                 videoRefs.current[index].currentTime = 0; // Reinicia o vídeo
                 videoRefs.current[index].play(); // Reproduz o vídeo
               }
             }}
             onMouseLeave={() => {
-              if (videoRefs.current[index]) {
+              if (!isTouchDevice && videoRefs.current[index]) {
                 videoRefs.current[index].pause(); // Pausa o vídeo ao sair
               }
             }}
@@ -127,7 +133,7 @@ const DashboardPage: React.FC = () => {
                   alt={module.title}
                   className="card-thumb"
                 />
-                {module.video_cover_url && (
+                {module.video_cover_url && module.video_cover_url.trim() !== "" && (
                   <video
                     ref={(el) => (videoRefs.current[index] = el)}
                     className="card-video"

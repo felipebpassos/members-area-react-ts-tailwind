@@ -45,7 +45,7 @@
     position: absolute;
     inset: 0;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 1s ease;
 }
 
 .card:hover .card-thumb {
@@ -54,6 +54,16 @@
 
 .card:hover .card-video {
     opacity: 1;
+}
+
+.card-video {
+    display: none;
+    /* Esconde o vídeo por padrão */
+}
+
+.card-video:not(:empty) {
+    display: block;
+    /* Mostra o vídeo apenas se existir conteúdo */
 }
 
 .card:hover {

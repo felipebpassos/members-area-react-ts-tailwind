@@ -9,13 +9,13 @@ import { RootState } from '../../redux/store';
 const ModuloPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  
+
   const [loading, setLoading] = useState<boolean>(true); // Estado de carregamento
 
   // Pegando o estado global
   const modules = useSelector((state: RootState) => state.module.modules);
   const lessonsByModule = useSelector((state: RootState) => state.module.lessonsByModule);
-  
+
   const modulo = modules.find((module) => module.id === parseInt(id || '')) || null;
   const lessons = lessonsByModule[parseInt(id || '')] || [];
 
@@ -66,7 +66,7 @@ const ModuloPage: React.FC = () => {
     <Layout>
       <div className="container mx-auto px-4">
         <h2 className="text-xl font-semibold mt-8 mb-12 text-normal text-center">
-          Módulo {modulo.id} - {modulo.title}
+          {modulo.title}
         </h2>
         <div className="space-y-4">
           {lessons.length > 0 ? (

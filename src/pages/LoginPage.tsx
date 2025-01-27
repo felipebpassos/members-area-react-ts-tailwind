@@ -71,7 +71,7 @@ const LoginPage: React.FC = () => {
       <footer className="fixed bottom-0 left-0 w-full text-dark py-6">
         <div className="flex justify-center">
           <span className="text-center text-sm">
-            &copy;<a href="https://simplifyweb.com.br" className="text-darker">SimplifyWeb</a>, todos os direitos reservados.
+            &copy;<a href="https://simplifyweb.com.br" className="text-darker">simplifyweb</a>, todos os direitos reservados.
           </span>
         </div>
       </footer>
