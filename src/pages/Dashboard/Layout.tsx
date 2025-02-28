@@ -48,7 +48,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <nav className="flex items-center gap-8">
 
               <Link
-                to="/in"
+                to="/dashboard"
               >
                 <button className={navLinkStyle}>
                   <i className="fas fa-house md:mr-2" />
