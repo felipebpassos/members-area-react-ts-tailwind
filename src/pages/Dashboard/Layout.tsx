@@ -22,9 +22,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           {/* Logo dentro de um Link */}
           <Link to="/dashboard" className="inline-block">
             <img
-              src="/logo_white.png" // Coloque o caminho correto da sua imagem
+              src="/logo.png" // Coloque o caminho correto da sua imagem
               alt="Logo"
-              className="w-20 h-auto" // Ajuste o tamanho conforme necessário
+              className="md:h-[30px] h-[24px]" // Ajuste o tamanho conforme necessário
             />
           </Link>
 
