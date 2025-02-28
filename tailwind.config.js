@@ -6,6 +6,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        primary: colors.primary,
         normal: colors.normal,
         light: colors.light,
         lighter: colors.lighter,

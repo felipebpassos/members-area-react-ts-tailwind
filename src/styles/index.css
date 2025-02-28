@@ -80,6 +80,11 @@ button {
     }
 }
 
+.banner-login {
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
+}
+
 /* Remover outline de todos os inputs no foco */
 input:focus {
     outline: none;

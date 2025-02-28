@@ -1,6 +1,7 @@
 // src/styles/colors.ts
 
 const colors = {
+    primary: '#FF9E4F',
     normal: '#CACACA',  
     light: '#ddd',  
     lighter: '#f1f1f1',  
