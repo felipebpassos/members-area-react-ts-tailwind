@@ -36,7 +36,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <div className="flex justify-between w-full items-center">
           <div className="flex items-center gap-12">
             {/* Logo */}
-            <Link to="/in" className="inline-block">
+            <Link to="/dashboard" className="inline-block">
               <img
                 src="/logo.png"
                 alt="Logo"
